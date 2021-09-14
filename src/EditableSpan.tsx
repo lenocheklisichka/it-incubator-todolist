@@ -6,9 +6,10 @@ export type EditableSpanPropsType = {
     changeTitle: (title: string) => void;
 }
 
-function EditableSpan(props: EditableSpanPropsType) {
+const EditableSpan = (props: EditableSpanPropsType) => {
     const [title, setTitle] = useState<string>(props.title)
     const [editMode, setEditMode] = useState<boolean>(false);
+
     const onEditMode = () => setEditMode(true)
     const offEditMode = () => {
         setEditMode(false)
@@ -36,5 +37,4 @@ function EditableSpan(props: EditableSpanPropsType) {
             <span onDoubleClick={onEditMode}>{props.title}</span>
     )
 }
-
 export default EditableSpan;

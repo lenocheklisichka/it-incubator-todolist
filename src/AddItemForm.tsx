@@ -6,7 +6,7 @@ import {LibraryAdd} from "@material-ui/icons";
     addItem: (title: string) => void,
 }
 
-export function AddItemForm(props: AddItemFormPropsType) { // компонента по добавлению todoLists
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {// компонента по добавлению todoLists
     let [title, setTitle] = useState<string>("")
     let [error, setError] = useState<boolean>(false)
     const errorMessage =
@@ -43,9 +43,9 @@ export function AddItemForm(props: AddItemFormPropsType) { // компонент
                 error={error}
                 helperText={errorMessage}
             />
-            <IconButton onClick={onClickAddItem}  color={"primary"}>
+            <IconButton onClick={onClickAddItem}  style={{color: "green"}}>
                 <LibraryAdd/>
             </IconButton>
         </div>
     )
-}
+})
