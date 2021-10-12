@@ -4,7 +4,6 @@ import {v1} from "uuid";
 export type RemoveTodoListAT = {
     type: "REMOVE-TODOLIST"
     todoListID: string
-
 }
 
 export type AddTodoListAT = {

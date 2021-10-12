@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useMemo, useReducer} from 'react';
 import './App.css';
 import TodoList from "./TodoList";
 import {v1} from "uuid";
@@ -20,7 +20,7 @@ export type TodolistType = {
     filter: FilterValuesType;
 }
 
- type TasksStateType = {
+ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
@@ -102,29 +102,33 @@ function AppWithReducers() {
         }
     }
 
-    const todoListComponents = todolist.map(tl => {
-        const taskForTodoList = getFilteredTasks(tl)
-        return (
-            <Grid item key={tl.id}>
-                <Paper elevation={5} style={{padding: "20px", marginTop: "50px",  border: "1px solid blue"}}>
-                    <TodoList
-                        key={tl.id}
-                        todoListID={tl.id}
-                        title={tl.title}
-                        removeTasks={removeTasks}
-                        removeTodoList={removeTodoList}
-                        tasks={taskForTodoList}
-                        changeTodoListFilter={changeTodoListFilter}
-                        addTask={addTask}
-                        changeTaskStatus={changeTaskStatus}
-                        filter={tl.filter}
-                        changeTaskTitle={changeTaskTitle}
-                        changeTodoListTitle={changeTodoListTitle}
-                    />
-                </Paper>
-            </Grid>
-        )
-    })
+
+    const todoCache = useMemo(() => {
+        console.log("Todo cache")
+        return todolist.map(tl => {
+            const taskForTodoList = getFilteredTasks(tl)
+            return (
+                <Grid item key={tl.id}>
+                    <Paper elevation={5} style={{padding: "20px", marginTop: "50px",  border: "1px solid blue"}}>
+                        <TodoList
+                            key={tl.id}
+                            todoListID={tl.id}
+                            title={tl.title}
+                            removeTasks={removeTasks}
+                            removeTodoList={removeTodoList}
+                            tasks={taskForTodoList}
+                            changeTodoListFilter={changeTodoListFilter}
+                            addTask={addTask}
+                            changeTaskStatus={changeTaskStatus}
+                            filter={tl.filter}
+                            changeTaskTitle={changeTaskTitle}
+                            changeTodoListTitle={changeTodoListTitle}
+                        />
+                    </Paper>
+                </Grid>
+            )
+        })
+    },[todolist])
 
     return (
         <div className="App">
@@ -147,7 +151,7 @@ function AppWithReducers() {
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
                 <Grid container spacing={5}>
-                    {todoListComponents}
+                    {todoCache}
                 </Grid>
             </Container>
         </div>

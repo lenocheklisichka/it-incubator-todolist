@@ -21,8 +21,6 @@ type PropsTodoListType = {
 }
 
 const TodoList = React.memo((props: PropsTodoListType) => {
-        // const todo = useSelector<AppRootStateType, TodolistType>(state => state.todoLists.filter(todo => todo.id === props.todoListID)[0])
-
         const addTask = useCallback((title: string) => { // получили какую-то строку
             props.addTask(title, props.todoListID) // TodoList внутри себя добавляет таски
         }, [props.todoListID, props.addTask])

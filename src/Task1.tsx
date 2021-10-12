@@ -19,17 +19,18 @@ export const Task1 = React.memo((props: Tasks1PropsType) => {
     const removeTask = () => dispatch(removeTasksAC(props.taskID, props.todoListID))
     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => dispatch(changeTaskStatusAC(props.taskID, e.currentTarget.checked, props.todoListID))
     const changeTaskTitle = (title: string) => dispatch(changeTaskTitleAC(props.taskID, title, props.todoListID))
+
     return (
-    <li style={{listStyle: "none", padding: "0px"}} key={task.id}>
+        <li style={{listStyle: "none", padding: "0px"}} key={task.id}>
                                 <span className={task.isDone ? "is-done" : ""}>
                                     <Checkbox color={"primary"}
                                               checked={task.isDone}
                                               onChange={changeTaskStatus}/>
                                     <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
                                 </span>
-        <IconButton onClick={removeTask} color={"secondary"}>
-            <DeleteSweep/>
-        </IconButton>
-    </li>
+            <IconButton onClick={removeTask} color={"secondary"}>
+                <DeleteSweep/>
+            </IconButton>
+        </li>
     )
 })
