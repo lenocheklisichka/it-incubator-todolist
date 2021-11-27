@@ -1,35 +1,27 @@
-import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {action} from "@storybook/addon-actions";
+import React from "react";
 import {Task} from "./Task";
-import {v1} from "uuid";
-
-const removeTasksCallback = action('RemoveTasks clicked')
-const changeTaskStatusCallback = action('ChangeTaskStatus clicked')
-const changeTaskTitleCallback = action('ChangeTaskTitle clicked')
-
+import {action} from "@storybook/addon-actions";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 
 export default {
     title: 'TODOLIST/Task',
     component: Task,
     args: {
-        removeTasks: removeTasksCallback,
-        changeTaskStatus: changeTaskStatusCallback,
-        changeTaskTitle: changeTaskTitleCallback,
+        changeTaskStatus: action('changeTaskStatusCallback'),
+        changeTaskTitle: action('changeTaskTitleCallback'),
+        removeTask: action('removeTaskCallback')
     }
-
 } as ComponentMeta<typeof Task>;
 
-const TaskTemplate: ComponentStory<typeof Task> = (args) => <Task {...args} />;
+const Template: ComponentStory<typeof Task> = (args) => <Task {...args}/>;
 
-export const TaskIsDoneStory = TaskTemplate.bind({});
-TaskIsDoneStory.args = {
-    task: {id: v1(), title: "REACT", isDone: true},
-    todoListID: "todo1",
+export const TaskIsDoneExample = Template.bind({});
+TaskIsDoneExample.args = {
+    task: {id: '1', isDone: true, title: 'JS'},
 };
 
-export const TaskIsNotDoneStory = TaskTemplate.bind({});
-TaskIsNotDoneStory.args = {
-    task: {id: v1(), title: "REACT", isDone: false},
-    todoListID: "todo1",
+export const TaskIsNotExample = Template.bind({});
+TaskIsNotExample.args = {
+    task: {id: '1', isDone: false, title: 'JS'},
+
 };

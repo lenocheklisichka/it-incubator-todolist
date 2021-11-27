@@ -1,21 +1,21 @@
 import React from "react";
+import {AppRootStateType} from "../state/store";
 import {Provider} from "react-redux";
-import {combineReducers, createStore} from "redux";
 import {tasksReducer} from "../state/tasks-reducer";
+import {combineReducers, createStore} from "redux";
 import {todoListsReducer} from "../state/todolists-reducer";
 import {v1} from "uuid";
-import {AppRootStateType} from "../state/store";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
     todoLists: todoListsReducer
 })
 
-const initialGlobalState = {
+const initialState = {
     todoLists: [
         {id: "todolistId1", title: "What to learn", filter: "all"},
         {id: "todolistId2", title: "What to buy", filter: "all"}
-    ] ,
+    ],
     tasks: {
         ["todolistId1"]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
@@ -28,10 +28,8 @@ const initialGlobalState = {
     }
 };
 
-export const story = createStore(rootReducer, initialGlobalState as AppRootStateType);
+export const storyBookStore = createStore(rootReducer, initialState as AppRootStateType);
 
-
-export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => (
-    <Provider
-        store={story}>{storyFn()}
-    </Provider>)
+export const ReduxStoreProviderDecorator = (storyFn: () => any) => {
+    return <Provider store={storyBookStore}>{storyFn()}</Provider>
+}

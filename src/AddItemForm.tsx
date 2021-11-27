@@ -1,51 +1,51 @@
-import React, {ChangeEvent, useState} from "react";
-import { IconButton, TextField} from "@material-ui/core";
-import {LibraryAdd} from "@material-ui/icons";
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from '@material-ui/core';
+import {LibraryAdd} from '@material-ui/icons';
 
- type AddItemFormPropsType = {
-    addItem: (title: string) => void,
+export type AddItemFormPropsType = {
+    addItem: (title: string) => void
 }
 
-export const AddItemForm = React.memo((props: AddItemFormPropsType) => {// компонента по добавлению todoLists
-    let [title, setTitle] = useState<string>("")
-    let [error, setError] = useState<boolean>(false)
-    const errorMessage =
-        error ? <div style={{color: "red"}}>Title is required</div> : null
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+    console.log("AddItemForm")
+    let [title, setTitle] = useState("")
+    let [error, setError] = useState<string | null>(null)
 
-    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        setError(false) // сетаем ошибку на false
-    }
-    const onKeyPressAddItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            onClickAddItem()
-        }
-    }
-    const onClickAddItem = () => {
-        const validatedTitle = title.trim() // функция валидирует title, обрезает пробелы
-        if (validatedTitle) {  // и если валидация прошла успешно, т. е. если не равна пустой строке
-            props.addItem(validatedTitle) // то в пропсах ожидаем функцию и в ней передаем валидированное значение, создали ссылку на функцию
+    const addItem = () => {
+        if (title.trim() !== "") {
+            props.addItem(title);
+            setTitle("");
         } else {
-            setError(true) // иначе выдает ошибку
+            setError("Title is required");
         }
-        setTitle(" ")
     }
 
-    return (
-        <div>
-            <TextField
-                variant={"outlined"}
-                size={"small"}
-                value={title}
-                onChange={onChangeTitle}
-                onKeyPress={onKeyPressAddItem}
-                label={"Title"}
-                error={error}
-                helperText={errorMessage}
-            />
-            <IconButton onClick={onClickAddItem}  style={{color: "green"}}>
-                <LibraryAdd/>
-            </IconButton>
-        </div>
-    )
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) {
+            setError(null);
+        }
+        if (e.charCode === 13) {
+            addItem();
+        }
+    }
+
+    return <div>
+        <TextField variant="outlined"
+                   size={"small"}
+                   error={!!error}
+                   value={title}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+                   label={"Title"}
+                   helperText={error}
+                   style={{backgroundColor: "#ffecb3"}}
+        />
+        <IconButton color={"primary"} onClick={addItem}>
+            <LibraryAdd/>
+        </IconButton>
+    </div>
 })

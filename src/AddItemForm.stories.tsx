@@ -1,19 +1,22 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import {AddItemForm} from "./AddItemForm";
-import {action} from "@storybook/addon-actions";
+import {AddItemForm, AddItemFormPropsType} from "./AddItemForm";
+import {action} from '@storybook/addon-actions';
+import {ComponentMeta, ComponentStory} from '@storybook/react';
 
 export default {
     title: 'TODOLIST/AddItemForm',
     component: AddItemForm,
+    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     argTypes: {
-        addItem: { description: 'callback' },
+        addItem: { description: 'Button inside form clicked' },
     },
 } as ComponentMeta<typeof AddItemForm>;
 
-const AddItemFormTemplate: ComponentStory<typeof AddItemForm> = (args) => <AddItemForm {...args} />;
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+const AddItemFormTemplate: ComponentStory<typeof AddItemForm> = (args: AddItemFormPropsType) => <AddItemForm {...args} />;
 
-export const AddItemFormStory = AddItemFormTemplate.bind({});
-AddItemFormStory.args = {
-    addItem: action('Button clicked')
+export const AddItemFormStories = AddItemFormTemplate.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+AddItemFormStories.args = {
+    addItem: action('Button inside form clicked')
 };

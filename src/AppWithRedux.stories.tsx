@@ -1,6 +1,7 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from "react";
+import {Task, TaskPropsType} from "./Task";
 import {action} from "@storybook/addon-actions";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 import AppWithRedux from "./AppWithRedux";
 import {Provider} from "react-redux";
 import {store} from "./state/store";
@@ -12,9 +13,6 @@ export default {
     decorators: [ReduxStoreProviderDecorator]
 } as ComponentMeta<typeof AppWithRedux>;
 
-const AppWithReduxTemplate: ComponentStory<typeof AppWithRedux> = (args) => <Provider store={store}><AppWithRedux/></Provider>;
+const Template: ComponentStory<typeof AppWithRedux> = (args) =><Provider store={store}><AppWithRedux /></Provider> ;
 
-export const AppWithReduxStory = AppWithReduxTemplate.bind({});
-AppWithReduxStory.args = {
-    addItem: action('Button clicked')
-};
+export const AppWithReduxStories = Template.bind({});
