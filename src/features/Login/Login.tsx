@@ -46,14 +46,13 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            debugger
            dispatch(loginTC(values))
             formik.resetForm()
         },
     })
 
     if(isLoggedIn){
-        return <Navigate to={"/"}/>
+        return <Navigate to={"/it-incubator-todolist-ts"}/>
     }
 
     return <Grid container justifyContent={'center'}>

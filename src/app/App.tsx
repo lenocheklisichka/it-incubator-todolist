@@ -62,11 +62,11 @@ function App({demo = false}: PropsType) {
             </AppBar>
             <Container fixed>
                 <Routes>
-                    <Route path='/' element={<TodolistsList demo={demo}/>}/>
+                    <Route path='/it-incubator-todolist-ts' element={<TodolistsList demo={demo}/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='404' element={<div style={{textAlign: "center", fontSize: "50px", marginTop: "200px"}}>
                         <span style={{fontSize: "100px", display: "block"}}>404</span>Oops! Page not found!</div>}/>
-                    {/*<Route path='*' element={<Navigate to='/404'/>}/>*/}
+                    <Route path='*' element={<Navigate to='/404'/>}/>
                 </Routes>
             </Container>
         </div>
